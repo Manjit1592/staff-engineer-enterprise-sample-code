@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Order Test</title>
+</head>
+<body>
+
+<h2>SignalR Order Test</h2>
+
+<div id="messages"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+<script>
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:5104/realtime/orders")
+    .build();
+
+connection.on("OrderPlaced", () => {
+    document.getElementById("messages").innerHTML +=
+        "<p>✅ OrderPlaced received</p>";
+
+    console.log("OrderPlaced received");
+});
+
+connection.on("OrderStatusUpdated", (orderId, status) => {
+    document.getElementById("messages").innerHTML +=
+        `<p>✅ Order ${orderId} updated to ${status}</p>`;
+
+    console.log(orderId, status);
+});
+
+connection.start()
+    .then(() => {
+        document.getElementById("messages").innerHTML +=
+            "<p>Connected to SignalR Hub</p>";
+    })
+    .catch(err => console.error(err));
+</script>
+
+</body>
+</html>

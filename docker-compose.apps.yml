@@ -1,0 +1,87 @@
+version: '3.9'
+
+services:
+
+  authservice:
+    build:
+      context: ./backend
+      dockerfile: src/Services/AuthService/Enterprise.AuthService.API/Dockerfile
+    container_name: enterprise_authservice
+    ports:
+      - "5287:8080"
+    networks:
+      - enterprise_network
+    external_links:
+      - enterprise_sqlserver
+
+  productservice:
+    build:
+      context: ./backend
+      dockerfile: src/Services/ProductService/Enterprise.ProductService.API/Dockerfile
+    container_name: enterprise_productservice
+    ports:
+      - "5221:8080"
+    networks:
+      - enterprise_network
+    external_links:
+      - enterprise_sqlserver
+
+  orderservice:
+    build:
+      context: ./backend
+      dockerfile: src/Services/OrderService/Enterprise.OrderService.API/Dockerfile
+    container_name: enterprise_orderservice
+    ports:
+      - "5104:8080"
+    networks:
+      - enterprise_network
+    external_links:
+      - enterprise_sqlserver
+
+  notificationservice:
+    build:
+      context: ./backend
+      dockerfile: src/Services/NotificationService/Enterprise.NotificationService.API/Dockerfile
+    container_name: enterprise_notificationservice
+    ports:
+      - "5190:8080"
+    networks:
+      - enterprise_network
+    external_links:
+      - enterprise_sqlserver
+      - enterprise_rabbitmq
+
+  inventoryservice:
+    build:
+      context: ./backend
+      dockerfile: src/Services/InventoryService/Enterprise.InventoryService.API/Dockerfile
+    container_name: enterprise_inventoryservice
+    ports:
+      - "5231:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+    networks:
+      - enterprise_network
+    external_links:
+      - enterprise_sqlserver
+
+  apigateway:
+    build:
+      context: ./backend
+      dockerfile: src/Gateway/Enterprise.ApiGateway/Dockerfile
+    container_name: enterprise_apigateway
+    ports:
+      - "7000:8080"
+    depends_on:
+      - authservice
+      - productservice
+      - orderservice
+      - notificationservice
+      - inventoryservice
+    networks:
+      - enterprise_network
+
+networks:
+  enterprise_network:
+    external: true
+    name: infra_enterprise_network

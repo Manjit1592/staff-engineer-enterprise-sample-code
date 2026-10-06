@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.AnalyticsService.Application\Enterprise.AnalyticsService.Application.csproj" />
+    <ProjectReference Include="..\Enterprise.AnalyticsService.Domain\Enterprise.AnalyticsService.Domain.csproj" />
+    <ProjectReference Include="..\Enterprise.AnalyticsService.Persistence\Enterprise.AnalyticsService.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.Common\Enterprise.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

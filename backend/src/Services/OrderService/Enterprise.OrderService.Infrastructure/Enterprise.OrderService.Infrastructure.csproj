@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+  <ProjectReference Include="..\Enterprise.OrderService.Application\Enterprise.OrderService.Application.csproj" />
+  <ProjectReference Include="..\Enterprise.OrderService.Persistence\Enterprise.OrderService.Persistence.csproj" />
+  <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.EventBus.RabbitMQ\Enterprise.EventBus.RabbitMQ.csproj" />
+  <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.EventBus.Kafka\Enterprise.EventBus.Kafka.csproj" />
+  <ProjectReference Include="..\..\ProductService\Enterprise.ProductService.Persistence\Enterprise.ProductService.Persistence.csproj" />
+  <ProjectReference Include="..\..\ProductService\Enterprise.ProductService.Domain\Enterprise.ProductService.Domain.csproj" />
+  <ProjectReference Include="..\..\AuthService\Enterprise.AuthService.Persistence\Enterprise.AuthService.Persistence.csproj" />
+  <ProjectReference Include="..\..\AuthService\Enterprise.AuthService.Domain\Enterprise.AuthService.Domain.csproj" />
+  <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.Common\Enterprise.Common.csproj" />
+</ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

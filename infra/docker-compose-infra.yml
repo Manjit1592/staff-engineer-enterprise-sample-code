@@ -1,0 +1,92 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: enterprise_sqlserver
+    environment:
+      SA_PASSWORD: "YourStrong@Pass123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - enterprise_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: enterprise_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - enterprise_network
+
+  redis:
+    image: redis:latest
+    container_name: enterprise_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - enterprise_network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: enterprise_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+    networks:
+      - enterprise_network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: enterprise_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: enterprise_zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://enterprise_kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - enterprise_network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: enterprise_elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: false
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    networks:
+      - enterprise_network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: enterprise_kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    networks:
+      - enterprise_network
+
+  seq:
+    image: datalust/seq:latest
+    container_name: enterprise_seq
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "true"
+    ports:
+      - "5341:80"
+    networks:
+      - enterprise_network
+
+networks:
+  enterprise_network:
+    driver: bridge

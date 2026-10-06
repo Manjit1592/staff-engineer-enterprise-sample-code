@@ -1,0 +1,22 @@
+using Enterprise.NotificationService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace Enterprise.NotificationService.Persistence.Context;
+
+public class NotificationDbContext : DbContext
+{
+    public NotificationDbContext(
+        DbContextOptions<NotificationDbContext> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Notification> Notifications =>
+        Set<Notification>();
+
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
+}

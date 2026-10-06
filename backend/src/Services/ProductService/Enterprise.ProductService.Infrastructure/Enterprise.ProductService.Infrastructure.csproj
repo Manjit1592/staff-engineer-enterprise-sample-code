@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.ProductService.Application\Enterprise.ProductService.Application.csproj" />
+    <ProjectReference Include="..\Enterprise.ProductService.Persistence\Enterprise.ProductService.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.Logging\Enterprise.Logging.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.EventBus.RabbitMQ\Enterprise.EventBus.RabbitMQ.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Enterprise.EventBus.Kafka\Enterprise.EventBus.Kafka.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+    <PackageReference Include="NEST" Version="7.17.5" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

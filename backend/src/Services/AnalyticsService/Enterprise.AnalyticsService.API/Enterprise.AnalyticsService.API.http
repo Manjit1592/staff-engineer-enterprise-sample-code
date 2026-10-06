@@ -1,0 +1,6 @@
+@Enterprise.AnalyticsService.API_HostAddress = http://localhost:5118
+
+GET {{Enterprise.AnalyticsService.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

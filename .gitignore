@@ -1,0 +1,22 @@
+# Dotnet
+**/bin/
+**/obj/
+**/.vs/
+
+# Node
+**/node_modules/
+**/dist/
+
+# IDE
+**/.idea/
+**/*.user
+**/*.suo
+
+# Test
+**/TestResults/
+
+# Env
+.env
+
+# Docker temp
+docker-data/
